@@ -44,4 +44,29 @@ public class CustomerServiceImpl implements CustomerService {
             throw new EntityNotFoundException("Customer not found : id = " + id);
         }
     }
+
+    @Override
+    public CustomerDTO createNewCustomer(CustomerDTO customerDTO) {
+
+        return saveCustomer(mapper.customerDTOToCustomer(customerDTO));
+    }
+
+    @Override
+    public CustomerDTO updateCustomer(Long id, CustomerDTO customerDTO) {
+
+        Customer customer = mapper.customerDTOToCustomer(customerDTO);
+        customer.setId(id);
+
+        return saveCustomer(customer);
+    }
+
+    private CustomerDTO saveCustomer(Customer customer) {
+        Customer savedCustomer = repository.save(customer);
+
+        CustomerDTO dto = mapper.customerToCustomerDTO(savedCustomer);
+        dto.setCustomerUrl(URI + savedCustomer.getId());
+
+        return dto;
+    }
+
 }

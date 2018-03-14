@@ -14,14 +14,17 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 public class CustomerServiceTest {
 
-    public static final long ID = 12L;
-    public static final String FIRST_NAME = "Bob";
-    public static final String LAST_NAME = "Bobbins";
+    private static final Long ID = 12L;
+    private static final String URI = "/api/v1/customers";
+    private static final String FIRST_NAME = "Bob";
+    private static final String LAST_NAME = "Bobbins";
+    private static final String CUSTOMER_URL = URI + "/" + ID;
 
     private CustomerService customerService;
 
@@ -58,4 +61,33 @@ public class CustomerServiceTest {
         assertEquals(FIRST_NAME, dto.getFirstName());
         assertEquals(LAST_NAME, dto.getLastName());
     }
+
+    @Test
+    public void createNewCustomer() {
+
+        Customer customer = new Customer(ID, FIRST_NAME, LAST_NAME);
+
+        when(customerRepository.save(any(Customer.class))).thenReturn(customer);
+
+        CustomerDTO dto = customerService.createNewCustomer(new CustomerDTO());
+
+        assertEquals(FIRST_NAME, dto.getFirstName());
+        assertEquals(LAST_NAME, dto.getLastName());
+        assertEquals(CUSTOMER_URL, dto.getCustomerUrl());
+    }
+
+    @Test
+    public void updateCustomer() {
+
+        Customer customer = new Customer(ID, FIRST_NAME, LAST_NAME);
+
+        when(customerRepository.save(any(Customer.class))).thenReturn(customer);
+
+        CustomerDTO dto = customerService.updateCustomer(ID, new CustomerDTO());
+
+        assertEquals(FIRST_NAME, dto.getFirstName());
+        assertEquals(LAST_NAME, dto.getLastName());
+        assertEquals(CUSTOMER_URL, dto.getCustomerUrl());
+    }
+
 }

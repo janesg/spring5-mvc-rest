@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class CategoryControllerTest {
 
-    private static final String URI = "/api/v1/categories/";
+    private static final String URI = "/api/v1/categories";
     private static final String NAME = "Joe";
     private static final Long ID = 12L;
 
@@ -63,7 +63,7 @@ public class CategoryControllerTest {
 
         when(service.getCategoryByName(anyString())).thenReturn(dto);
 
-        mockMvc.perform(get(URI + NAME).contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get(URI + "/" + NAME).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", equalTo(ID.intValue())))
                 .andExpect(jsonPath("$.name", equalTo(NAME)));
