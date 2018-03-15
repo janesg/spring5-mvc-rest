@@ -60,6 +60,29 @@ public class CustomerServiceImpl implements CustomerService {
         return saveCustomer(customer);
     }
 
+    @Override
+    public CustomerDTO patchCustomer(Long id, CustomerDTO customerDTO) {
+
+        Optional<Customer> optCust = repository.findById(id);
+
+        if (optCust.isPresent()) {
+            Customer existing = optCust.get();
+
+            if (customerDTO.getFirstName() != null) {
+                existing.setFirstName(customerDTO.getFirstName());
+            }
+
+            if (customerDTO.getLastName() != null) {
+                existing.setLastName(customerDTO.getLastName());
+            }
+
+            return mapper.customerToCustomerDTO(repository.save(existing));
+
+        } else {
+            throw new EntityNotFoundException("Customer not found : id = " + id);
+        }
+    }
+
     private CustomerDTO saveCustomer(Customer customer) {
         Customer savedCustomer = repository.save(customer);
 
