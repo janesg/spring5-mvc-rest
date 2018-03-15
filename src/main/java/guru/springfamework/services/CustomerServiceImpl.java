@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
 
-    private static final String URI = "/api/v1/customers/";
+    private static final String BASE_URL = "/api/v1/customers";
 
     private CustomerRepository repository;
     private CustomerMapper mapper;
@@ -25,7 +25,7 @@ public class CustomerServiceImpl implements CustomerService {
         return repository.findAll().stream()
                 .map(customer -> {
                     CustomerDTO dto = mapper.customerToCustomerDTO(customer);
-                    dto.setCustomerUrl(URI + customer.getId());
+                    dto.setCustomerUrl(BASE_URL + "/" + customer.getId());
                     return dto;
                 })
                 .collect(Collectors.toList());
@@ -37,7 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         if (optCustomer.isPresent()) {
             CustomerDTO dto = mapper.customerToCustomerDTO(optCustomer.get());
-            dto.setCustomerUrl(URI + id);
+            dto.setCustomerUrl(BASE_URL + "/" + id);
             return dto;
         } else {
             throw new ResourceNotFoundException("Customer not found : id = " + id);
@@ -91,7 +91,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer savedCustomer = repository.save(customer);
 
         CustomerDTO dto = mapper.customerToCustomerDTO(savedCustomer);
-        dto.setCustomerUrl(URI + savedCustomer.getId());
+        dto.setCustomerUrl(BASE_URL + "/" + savedCustomer.getId());
 
         return dto;
     }

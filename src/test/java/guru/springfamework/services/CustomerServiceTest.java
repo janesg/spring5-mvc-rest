@@ -21,10 +21,10 @@ import static org.mockito.Mockito.when;
 public class CustomerServiceTest {
 
     private static final Long ID = 12L;
-    private static final String URI = "/api/v1/customers";
+    private static final String BASE_URL = "/api/v1/customers";
     private static final String FIRST_NAME = "Bob";
     private static final String LAST_NAME = "Bobbins";
-    private static final String CUSTOMER_URL = URI + "/" + ID;
+    private static final String CUSTOMER_URL = BASE_URL + "/" + ID;
 
     private CustomerService customerService;
 
@@ -60,6 +60,7 @@ public class CustomerServiceTest {
 
         assertEquals(FIRST_NAME, dto.getFirstName());
         assertEquals(LAST_NAME, dto.getLastName());
+        assertEquals(CUSTOMER_URL, dto.getCustomerUrl());
     }
 
     @Test

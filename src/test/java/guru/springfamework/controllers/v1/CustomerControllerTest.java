@@ -167,12 +167,9 @@ public class CustomerControllerTest {
     public void deleteCustomer() throws Exception {
 
         // Mocking a method that returns void
-        doAnswer(new Answer<Void>() {
-            @Override
-            public Void answer(InvocationOnMock invocation) {
-                Stream.of(invocation.getArguments()).forEach(arg -> log.debug("Arg = " + arg.toString()));
-                return null;
-            }
+        doAnswer((Answer<Void>) invocation -> {
+            Stream.of(invocation.getArguments()).forEach(arg -> log.debug("Arg = " + arg.toString()));
+            return null;
         }).when(service).deleteCustomer(anyLong());
 
         mockMvc.perform(delete(CUSTOMER_URL)

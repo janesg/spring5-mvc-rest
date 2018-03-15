@@ -6,6 +6,7 @@ import guru.springfamework.bootstrap.Bootstrap;
 import guru.springfamework.domain.Customer;
 import guru.springfamework.repositories.CategoryRepository;
 import guru.springfamework.repositories.CustomerRepository;
+import guru.springfamework.repositories.VendorRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +33,9 @@ public class CustomerService_IT {
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Autowired
+    private VendorRepository vendorRepository;
+
     private CustomerService customerService;
 
     @Before
@@ -39,7 +43,9 @@ public class CustomerService_IT {
         // Note: ID's of created entities will be different for each test because
         //       even though DB changes are rolled back the sequence does not reset
         // https://stackoverflow.com/questions/19470700/reset-jpa-generated-value-between-tests
-        Bootstrap bootstrap = new Bootstrap(categoryRepository, customerRepository);
+        Bootstrap bootstrap = new Bootstrap(categoryRepository,
+                                            customerRepository,
+                                            vendorRepository);
         bootstrap.run();
 
         customerService = new CustomerServiceImpl(customerRepository, CustomerMapper.INSTANCE);
