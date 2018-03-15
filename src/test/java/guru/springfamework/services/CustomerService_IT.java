@@ -99,6 +99,20 @@ public class CustomerService_IT {
         assertThat(originalLastName, not(equalTo(updatedCustomer.getLastName())));
     }
 
+    @Test
+    public void deleteCustomer() {
+
+        Long id = getExistingCustomerId();
+
+        Optional<Customer> optOriginalCustomer = customerRepository.findById(id);
+        assertTrue(optOriginalCustomer.isPresent());
+
+        customerService.deleteCustomer(id);
+
+        Optional<Customer> optDeletedCustomer = customerRepository.findById(id);
+        assertFalse(optDeletedCustomer.isPresent());
+    }
+
     private Long getExistingCustomerId() {
         return customerRepository.findAll().stream()
                 .findAny().orElseThrow(EntityNotFoundException::new).getId();

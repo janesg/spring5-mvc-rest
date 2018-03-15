@@ -76,11 +76,16 @@ public class CustomerServiceImpl implements CustomerService {
                 existing.setLastName(customerDTO.getLastName());
             }
 
-            return mapper.customerToCustomerDTO(repository.save(existing));
+            return saveCustomer(existing);
 
         } else {
             throw new EntityNotFoundException("Customer not found : id = " + id);
         }
+    }
+
+    @Override
+    public void deleteCustomer(Long id) {
+        repository.deleteById(id);
     }
 
     private CustomerDTO saveCustomer(Customer customer) {
