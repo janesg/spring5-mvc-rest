@@ -7,7 +7,6 @@ import guru.springfamework.repositories.CustomerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,7 +40,7 @@ public class CustomerServiceImpl implements CustomerService {
             dto.setCustomerUrl(URI + id);
             return dto;
         } else {
-            throw new EntityNotFoundException("Customer not found : id = " + id);
+            throw new ResourceNotFoundException("Customer not found : id = " + id);
         }
     }
 
@@ -79,7 +78,7 @@ public class CustomerServiceImpl implements CustomerService {
             return saveCustomer(existing);
 
         } else {
-            throw new EntityNotFoundException("Customer not found : id = " + id);
+            throw new ResourceNotFoundException("Customer not found : id = " + id);
         }
     }
 
