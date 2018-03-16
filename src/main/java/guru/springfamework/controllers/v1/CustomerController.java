@@ -3,10 +3,13 @@ package guru.springfamework.controllers.v1;
 import guru.springfamework.api.v1.model.CustomerDTO;
 import guru.springfamework.api.v1.model.CustomerListDTO;
 import guru.springfamework.services.CustomerService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+@Api(description = "Custom description of controller")
 @RestController
 @RequestMapping("/api/v1/customers")
 @AllArgsConstructor
@@ -14,6 +17,7 @@ public class CustomerController {
 
     private CustomerService customerService;
 
+    @ApiOperation(value = "Get a list of customers", notes = "Some additional operation notes")
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
     public CustomerListDTO getAllCustomers() {
