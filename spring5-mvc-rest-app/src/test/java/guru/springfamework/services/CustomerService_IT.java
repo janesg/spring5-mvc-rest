@@ -39,7 +39,7 @@ public class CustomerService_IT {
     private CustomerService customerService;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         // Note: ID's of created entities will be different for each test because
         //       even though DB changes are rolled back the sequence does not reset
         // https://stackoverflow.com/questions/19470700/reset-jpa-generated-value-between-tests
