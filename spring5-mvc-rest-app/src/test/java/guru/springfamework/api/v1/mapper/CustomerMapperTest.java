@@ -1,6 +1,6 @@
 package guru.springfamework.api.v1.mapper;
 
-import guru.springfamework.api.v1.model.CustomerDTO;
+import guru.springfamework.model.CustomerDTO;
 import guru.springfamework.domain.Customer;
 import org.junit.Test;
 
@@ -8,9 +8,9 @@ import static org.junit.Assert.*;
 
 public class CustomerMapperTest {
 
-    public static final String FIRST_NAME = "Bob";
-    public static final String LAST_NAME = "Ajob";
-    public static final Long ID = 12L;
+    private static final String FIRST_NAME = "Bob";
+    private static final String LAST_NAME = "Ajob";
+    private static final Long ID = 12L;
 
     @Test
     public void customerToCustomerDTO() {
