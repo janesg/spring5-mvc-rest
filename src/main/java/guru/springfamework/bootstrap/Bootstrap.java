@@ -7,11 +7,13 @@ import guru.springfamework.repositories.CategoryRepository;
 import guru.springfamework.repositories.CustomerRepository;
 import guru.springfamework.repositories.VendorRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
+@Slf4j
 public class Bootstrap implements CommandLineRunner {
 
     private final CategoryRepository categoryRepository;
@@ -47,7 +49,7 @@ public class Bootstrap implements CommandLineRunner {
         categoryRepository.save(exotic);
         categoryRepository.save(nuts);
 
-        System.out.println("Data Loaded : Category count = " + categoryRepository.count());
+        log.info(String.format("Data Loaded : Category count = %d", categoryRepository.count()));
     }
 
     private void loadCustomers() {
@@ -61,7 +63,7 @@ public class Bootstrap implements CommandLineRunner {
         customerRepository.save(finbar);
         customerRepository.save(nancy);
 
-        System.out.println("Data Loaded : Customer count = " + customerRepository.count());
+        log.info(String.format("Data Loaded : Customer count = %d", customerRepository.count()));
     }
 
     private void loadVendors() {
@@ -77,7 +79,7 @@ public class Bootstrap implements CommandLineRunner {
         vendorRepository.save(sainsburys);
         vendorRepository.save(tesco);
 
-        System.out.println("Data Loaded : Vendor count = " + vendorRepository.count());
+        log.info(String.format("Data Loaded : Vendor count = %d", vendorRepository.count()));
     }
 
 }

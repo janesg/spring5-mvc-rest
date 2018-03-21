@@ -65,7 +65,9 @@ public class CustomerControllerTest {
 
         when(service.getAllCustomers()).thenReturn(dtos);
 
-        mockMvc.perform(get(URI).contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get(URI)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.customers", hasSize(3)));
     }
@@ -77,7 +79,9 @@ public class CustomerControllerTest {
 
         when(service.getCustomerById(anyLong())).thenReturn(dto);
 
-        mockMvc.perform(get(CUSTOMER_URL).contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get(CUSTOMER_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstName", equalTo(FIRST_NAME)))
                 .andExpect(jsonPath("$.lastName", equalTo(LAST_NAME)))
@@ -103,7 +107,8 @@ public class CustomerControllerTest {
 
         mockMvc.perform(post(URI)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(dto)))
+                .content(new ObjectMapper().writeValueAsString(dto))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.firstName", equalTo(FIRST_NAME)))
                 .andExpect(jsonPath("$.lastName", equalTo(LAST_NAME)))
@@ -123,7 +128,8 @@ public class CustomerControllerTest {
 
         mockMvc.perform(put(CUSTOMER_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(dto)))
+                .content(new ObjectMapper().writeValueAsString(dto))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstName", equalTo(FIRST_NAME)))
                 .andExpect(jsonPath("$.lastName", equalTo(LAST_NAME)))
@@ -142,7 +148,8 @@ public class CustomerControllerTest {
 
         mockMvc.perform(patch(CUSTOMER_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(dto)))
+                .content(new ObjectMapper().writeValueAsString(dto))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstName", equalTo(FIRST_NAME)))
                 .andExpect(jsonPath("$.lastName", equalTo(LAST_NAME)))
